@@ -110,15 +110,15 @@
 <p>​       在发布一篇博文时，本人就遇到了一些棘手的一些小问题，但是在摸索的过程中，真的觉得还是不是那么容易解决的。问题如下：</p>
 <h3 id="问题一："><a href="#问题一：" class="headerlink" title="问题一："></a>问题一：</h3><p>​        在预览时，报YAMLException: cannot read a block mapping entry; a multi line key may not be an implicit key at line .., column ..错误</p>
 <p>解决：一般遇到这种问题是因为，在你的博文中（即.md文件）的头部声明（Front Matter）格式不正确，一般是没有加空格所致,可以看下报错中具体报错在几行几列，锁定某个位置后，看看其前后有没有空格等格式部队的地方。如图所示格式：</p>
-<p><img src="../images/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/1586139768950.png" alt="1586139768950"></p>
+<p><img src="/images/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/1586142665536.png" alt="1586142665536"></p>
 <h3 id="问题二："><a href="#问题二：" class="headerlink" title="问题二："></a>问题二：</h3><p>​      报YAMLException: end of the stream or a document separator is expected at line x, column y:错误。</p>
 <p>解决：缺少分隔符，一般都是因为缺少空格，出现这种情况，一般都是缺少空格，在<code>:</code>冒号之后要有空格！检查x行y列附近的冒号，其之后是否跟了空格。跟上面的处理方式相同。</p>
 <h3 id="问题三："><a href="#问题三：" class="headerlink" title="问题三："></a>问题三：</h3><p>​      hexo中添加图片摘要时，遇到问题，可能还是会出现如上的报错问题比如YAMLException: cannot read a block mapping entry; a multi line key may not be an implicit key at line .., column ..，或者就是网页上显示不出来图片或者显示不出来图片下面的注解。这里也是要注意头部文件的格式。添加图片摘要的格式严格按照下面来进行：</p>
-<p><img src="../images/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/1586140374153.png" alt="1586140374153"></p>
+<p><img src="/images/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/1586142732797.png" alt="1586142732797"></p>
 <h3 id="问题四："><a href="#问题四：" class="headerlink" title="问题四："></a>问题四：</h3><p>​      文章添加置顶功能，只需要在你的博文 <code>front-matter</code> 中加上 <code>top</code> , 主题根据 <code>top</code> 的大小来决定置顶顺序。比如：</p>
-<p><img src="../images/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/1586140632413.png" alt="1586140632413"></p>
+<p><img src="/images/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/1586142765679.png" alt="1586142765679"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​       赘述了这么多，总而言之就是注意格式！格式！格式！大部分的报错都是因为头部声明文件格式错误！比较完整的格式如下所示：</p>
-<p><img src="../images/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/1586140756013.png" alt="1586140756013"></p>
+<p><img src="/images/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/1586142802722.png" alt="1586142802722"></p>
 <p>大家只要在写的时候稍微认真那么一丢丢就可以完全避免辣。</p>
 <p>​        最后，还有要注意的一点就是，Front Matter在这里！！！（.md中右键点击插入，里面就有Front Matter字样了。）刚开始并不知道Front Matter是什么东东，找了好久才发现的。</p>
 <p>​       以上就是全部内容了，笔芯！</p>
