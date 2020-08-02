@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Amanda-Zhang"><meta name="renderer" content="webkit"><meta name="copyright" content="Amanda-Zhang"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>知识图谱入门 · Amanda's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/me11.jpg"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Amanda-Zhang</div><div class="profile-signature">追梦女一枚</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/cyh756085049" target="_black">friendA</a></span><span><a href="//github.com/raymond-zhao" target="_black">friendB</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.jpg);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Chunchun's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">知识图谱入门</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-08-02</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="知识图谱"> 知识图谱</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">6k</span> | Reading time: <span class="post-count">20</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h1 id="介绍"><a href="#介绍" class="headerlink" title="|介绍"></a><strong>|</strong>介绍</h1><p>读了两篇国内较好的关于知识图谱的综述，一篇是2016年电子科技大学刘峤老师的知识图谱构建技术综述，另一篇是2016年电科徐增林老师的知识图谱技术综述。以下是一些论文笔记以及对论文的一些归纳。</p>
+<p>首先先介绍一下语义网络的概念。语义网络是一张数据构成的网络（Web of data），语义网络技术向用户提供的是一个查询环境，其核心要义是以图形的方式向用户返回经过加工和推理的知识。</p>
+<p>知识图谱（knowledge graph）技术则是实现智能化语义检索的基础和桥梁。知识图谱对实现数据到知识的转化有重要作用，其目的是对真实世界中存在的实体、概念及其关联关系进行描述。知识图谱所涉及到的知识以及技术流程归纳如下图所示。</p>
+<p><img src="/images/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1-1596372753012.png" alt="知识图谱"></p>
+<h1 id="技术架构"><a href="#技术架构" class="headerlink" title="|技术架构"></a><strong>|</strong>技术架构</h1><p>从知识图谱构建的角度，介绍知识图谱的一般技术架构。图１给出了知识图谱技术的整体架构，其中虚线框内的部分为知识图谱的构建过程，同时也是知识图谱更新的过程。如图所示，知识图谱的构建过程是从原始数据出发，采用一系列自动或半自动的技术手段，从原始数据中提取出知识要素（即事实），并将其存入知识库的数据层和模式层的过程。这是一个迭代更新的过程，根据知识获取的逻辑，每一轮迭代包含３个阶段：信息抽取、知识融合以及知识加工。</p>
+<img src="/images/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/image-20200801150845009.png" alt="image-20200801150845009" style="zoom: 50%;">
+
+<p>　　</p>
+<p>知识图 谱 有 自 顶 向 下 和 自 底 向 上 ２种 构 建 方式。所谓自顶向下构建是指借助百科类网站等结构化数据源，从高质量数据中提取本体和模式信息，加入到知识库中；所谓自底向上构建，则是借助一定的技术手段，从公开采集的数据中提取出资源模式，选择其中置信度较高的新模式，经人工审核之后，加入到知识库中。目前的知识图谱大多采用自底向上的方式构建，这里业主要介绍自底向上的知识图谱构建技术，按照知识获取的过程分为3个层次：信息抽取、知识融合以及知识加工。</p>
+<p>采用自底向上的方式构建知识图谱的过程是一个迭代更新的过程，每一轮更新包括３个步骤：</p>
+<p>１）信息抽取，即从各种类型的数据源中提取出实体（概念）、属性以及实体间的相互关系，在此基础上形成本体化的知识表达；</p>
+<p>２）知识融合，在获得新知识之后，需要对其进行整合，以消除矛盾和歧义，比如某些实体可能有多种表达，某个特定称谓也许对应于多个不同的实体等；</p>
+<p>３）知识加工，对于经过融合的新知识，需要经过质量评估之后（部分需要人工参与甄别），才能将合格的部分加入到知识库中，以确保知识库的质量．新增数据之后，可以进行知识推理、拓展现有知识、得到新知识。</p>
+<h1 id="知识图谱的构建技术"><a href="#知识图谱的构建技术" class="headerlink" title="|知识图谱的构建技术"></a><strong>|</strong>知识图谱的构建技术</h1><h2 id="信息抽取"><a href="#信息抽取" class="headerlink" title="信息抽取"></a>信息抽取</h2><p>信息抽取是一种自动化地从半结构化和无结构数据中抽取实体、关系以及实体属性等结构化信息的技术。涉及的关键技术包括：实体抽取、关系抽取和属性抽取。</p>
+<h3 id="实体抽取"><a href="#实体抽取" class="headerlink" title="实体抽取"></a>实体抽取</h3><p>实体抽取，也称为命名实体识别（named entity recognition,NER），是指从文本数据集中自动识别出命名实体．实体抽取的质量（准确率和召回率）对后续的知识获取效率和质量影响极大，因此是信息抽取中最为基础和关键的部分。</p>
+<h3 id="关系抽取"><a href="#关系抽取" class="headerlink" title="关系抽取"></a>关系抽取</h3><p>文本语料经过实体抽取，得到的是一系列离散的命名实体，为了得到语义信息，还需要从相关语料中提取出实体之间的关联关系，通过关系将实体（概念）联系起来，才能够形成网状的知识结构。研究关系抽取技术的目的，就是解决如何从文本语料中抽取实体间的关系这一基本问题。</p>
+<h3 id="属性抽取"><a href="#属性抽取" class="headerlink" title="属性抽取"></a>属性抽取</h3><p>属性抽取的目标是从不同信息源中采集特定实体的属性信息。例如针对某个公众人物，可以从网络公开信息中得到其昵称、生日、国籍、教育背景等信息。属性抽取技术能够从多种数据来源中汇集这些信息，实现对实体属性的完整勾画。</p>
+<h2 id="知识融合"><a href="#知识融合" class="headerlink" title="知识融合"></a>知识融合</h2><p>通过信息抽取，实现了从非结构化和半结构化数据中获取实体、关系以及实体属性信息的目标，然 而，这些结果中可能包含大量的冗余和错误信息，数据之间的关系也是扁平化的，缺乏层次性和逻辑性，因此有必要对其进行清理和整合。知识融合包括２部分内容：实体链接和知识合并。通过知识融合，可以消除概念的歧义，剔除冗余和错误概念，从而确保知识的质量．</p>
+<h3 id="实体链接"><a href="#实体链接" class="headerlink" title="实体链接"></a>实体链接</h3><p>实体链接（entity linking）是指对于从文本中抽取得到的实体对象，将其链接到知识库中对应的正确实体对象的操作。实体链接的基本思想是首先根据给定的实体指称项，从知识库中选出一组候选实体对象，然后通过相似度计算将指称项链接到正确的实体对象。</p>
+<p>实体链接的一般流程是：１）从文本中通过实体抽取得到实体指称项；２）进行实体消歧和共指消解，判断知识库中的同名实体与之是否代表不同的含义以及知识库中是否存在其他命名实体与之表示相同的含义；３）在确认知识库中对应的正确实体对象之后，将该实体指称项链接到知识库中对应实体。</p>
+<h4 id="实体消岐"><a href="#实体消岐" class="headerlink" title="实体消岐"></a>实体消岐</h4><p>实体消 歧（entity disambiguation）是 专 门 用 于解决同名实体产生歧义问题的技术。在实际语言环境中，经常会遇到某个实体指称项对应于多个命名实体对象的问题，例如“李娜”这个名词（指称项）可以对应于作为歌手的李娜这个实体，也可以对应于作为网球运动员的李娜这个实体，通过实体消歧，就可以根据当前的语境，准确建立实体链接．实体消歧主要采用聚类法。</p>
+<p>聚类法是指以实体对象为聚类中心，将所有指向同一目标实体对象的指称项聚集到以该对象为中心的类别下。聚类法消歧的关键问题是如何定义实体对象与指称项之间的相似度，常用方法有４种。</p>
+<h5 id="空间向量模型（词袋模型）"><a href="#空间向量模型（词袋模型）" class="headerlink" title="空间向量模型（词袋模型）"></a>空间向量模型（词袋模型）</h5><p>典型的方法是取当前语料中实体指称项周边的词构成特征向量，然后利用向量的余弦相似度进行比较，将该指称项聚类到与之最相近的实体指称项集合中。该方法的缺点在于没有考虑上下文语义信息，这种信息损失会导致在某些情况下算法性能恶化，如短文本分析。</p>
+<h5 id="语义模型"><a href="#语义模型" class="headerlink" title="语义模型"></a>语义模型</h5><p>该模型与空间向量模型类似，区别别在于特征向量的构造方法不同，语义模型的特征向量不仅包含词袋向量，而且包含一部分语义特征。</p>
+<h5 id="社会网络模型"><a href="#社会网络模型" class="headerlink" title="社会网络模型"></a>社会网络模型</h5><p>该模型的基本假设是物以类聚、人以群分，在社会化语境中，实体指称项的意义在很大程度上是由与其相关联的实体所决定的。建模时，首先利用实体间的关系将与之相关的指称项链接起来构成网络，然后利用社会网络分析技术计算该网络中节点之间的拓扑距离（网络中的节点即实体的指称项），以此来判定指称项之间的相似度。</p>
+<h5 id="百科知识模型"><a href="#百科知识模型" class="headerlink" title="百科知识模型"></a>百科知识模型</h5><p>百科类网站通常会为每个实体（指称项）分配一个单独页面，其中包括指向其他实体页面的超链接，百科知识模型正是利用这种链接关系来计算实体指称项之间的相似度。</p>
+<p>实体消歧技术能够帮助搜索引擎更好地理解用户的搜索意图，从而给出更好的上下文推荐结果，提高搜索服务质量。其中还有一个很重要的问题是如何对存在歧义的实体进行重要性评估，以确定推荐内容的优先级．当前的主要研究思路是为实体赋予权重，用于表示该实体出现的频率或先验概率。</p>
+<h4 id="共指消解"><a href="#共指消解" class="headerlink" title="共指消解"></a>共指消解</h4><p>共指消 解（entity resolution）技 术 主 要 用 于 解决多个指称项对应于同一实体对象的问题。例如在一篇新闻稿中，“Barack Obama”，“president Obama”，“the president”等指称项可能指向的是同一实体对象，其中的许 多 代 词 如“he”，“him”等，也 可 能 指 向该实体对象。利用共指消解技术，可以将这些指称项关联（合并）到正确的实体对象。由于该问题在信息检索和自然语言处理等领域具有特殊的重要性，吸引了大量的研究努力，因此学术界对该问题有多种不 同 的 表 述，典 型 的 包 括：对 象 对 齐 （object alignment）、实体匹配（entity matching）以及实体同义（entity synonyms）。</p>
+<p>基于自然语言处理的共指消解是以句法分析为基础的，代表性方法是Hobbs算法和向心理论（centering theory）。Hobbs算法是最早的代词消解算法之一，主要思路是基于句法分析树进行搜索，因此适用于实体与代词出现在同一句子中的场景，有一定的局限性。向心理论的基本思想是：将表达 模 式（utterance）视 为 语 篇（discourse）的基本组成单元，通过识别表达模式中的实体，可以获得当前和后续语篇中的关注中心（实体），根据语义的局部连贯性和显著性，就可以在语篇中跟踪受关注的实体。</p>
+<h3 id="知识合并"><a href="#知识合并" class="headerlink" title="知识合并"></a>知识合并</h3><p>在构建知识图谱时，可以从第三方知识库产品或已有结构化数据获取知识输入．例如，关联开放数据项目（linked open data）会定期发布其经过积累和整理的语义知识数据，其中既包括前文介绍过的通用知识库 DBpedia和 YAGO，也包括面向特定领域的知识库产品，如MusicBrainz和 DrugBank等。</p>
+<h4 id="合并外部知识库"><a href="#合并外部知识库" class="headerlink" title="合并外部知识库"></a>合并外部知识库</h4><p>将外部知识库融合到本地知识库需要处理２个层面的问题。①数据层的融合，包括实体的指称、属 性、关系以及所属类别等，主要的问题是如何避免实例以及关系的冲突问题，造成不必要的冗余；②通过模式层的融合，将新得到的本体融入已有的本体库中。</p>
+<h4 id="合并关系数据库"><a href="#合并关系数据库" class="headerlink" title="合并关系数据库"></a>合并关系数据库</h4><p>在知识图谱构建过程中，一个重要的高质量知识来源是企业或者机构自己的关系数据库．为了将这些结构化的历史数据融入到知识图谱中，可以采用资源描述框架（RDF）作为数据模型．业界和学术界将这一数据转换过程形象地称为 RDB2RDF，其实质就是将关系数据库的数据换成 RDF 的三元组数据．根据 W3C的调查报告显示，当前已经出现了大 量 RDB2RDF 的 开 源 工 具 （如 Triplify，D2RServer，OpenLink Virtuoso，SparqlMap等），然而由于缺少标准规范，使得这些工具的推广应用受到极大制约。为此，W3C于 2012年 推 出 了２种 映 射语言 标 准：Direct Mapping（Ａ Direct mapping of relational data to RDF）和 R2RML（RDB to RDF mapping language)。其 中，Direct Mapping采 用 直接映射的方式，将关系数据库表结构和数据直接输出为 RDF图，在 RDF图中所用到的用于表示类和谓词的术语与关系数据库中的表名和字段名保持一致。而 R2RML则具有较高的灵活性和 可 定 制 性，允 许为给定的数据库结构定制词汇表，可以将关系数据库通过R2RM映射为RDF数据集，其中所用的术语如类的名称，谓词均来自定义词汇表。</p>
+<p>除了关系型数据库之外，还有许多以半结构化方式存 储（如 XML，CSV，JSON 等 格 式）的 历 史 数据也是高质量的知识来源，同样可以采用RDF数据模型将其合并到知识图谱当中。当前已经有许多这样的工具软件，例 如 XSPARQL支 持 从XML格 式转化为RDF，Datalift支持从XML和CSV格 式 转化为RDF，经过RDF转化的知识元素，经实体链接之后，就可以加入到知识库中，实现知识合并。</p>
+<h2 id="知识加工"><a href="#知识加工" class="headerlink" title="知识加工"></a>知识加工</h2><p>通过信息抽取，可以从原始语料中提取出实体、关系与属性等知识要素．再经过知识融合，可以消除实体指称项与实体对象之间的歧义，得到一系列基本的事实表达。然而，事实本身并不等于知识，要想最终获得结构化、网络化的知识体系，还需要经历知识加工的过程．知识加工主要包括３方面内容：本体构建、知识推理和质量评估。</p>
+<h3 id="本体构建"><a href="#本体构建" class="headerlink" title="本体构建"></a>本体构建</h3><p>本体是同一领域内的不同主体之间进行交流的语义基础。本体是 树 状 结 构，相 邻 层 次 的 节 点（概 念）之间具有 严 格 的“IsA”关 系，这 种 单 纯 的 关 系 有 助于知识推理，但却不利于表达概念的多样性。在知识图谱中，本体位于模式层，用于描述概念层次体系是知识库中知识的概念模板。</p>
+<p>当前主流的全局本体库产品，都是从一些面向特定领域的现有本体库出发，采用自动构建技术逐步扩展得到的。例如微软发布的 Probase本体库就是采用数据驱动的自动化构建方法，利用统计机器学习算法迭代地从网页文本数据中抽取出概念之间的“IsA”关系，然后 合 并 形 成 概 念 层 次。目 前，Probase中包含了超过270万 条 概 念，准 确 率 高 达92.8％，在规模和准确性方面居于领先地位。</p>
+<p>数据 驱 动 的 自 动 化 本 体 构 建 过 程 包 含 ３个 阶段：实体并列关系相似度计算、实体上下位关系抽取以及本体的生成。１）实体并列关系相似度是用于考察任意给定的２个实体在多大程度上属于同一概念分类的指标测度，相似度越高，表明这２个实体越有可能属于同一语义类别IsA。所谓并列关系，是相对于纵向的概念隶属关系而言的。例如“中国”和“美国”作为国家名称的实体，具有较高的并列关系相似度； 而“美国”和“手机”这２个实体，属于同一语义类别的可能性较低，因此具有较低的并列关系相似度。２）实体上下位关系抽取是用于确定概念之间的隶属（IsA）关系，这种关系也称为上下位关系，例 如，词 组（导弹，武器）构成上下位关系，其中的“导弹”为下位词，“武器”为上位词。３）本体生成阶段的主要任务是对各层次得到的概念进行聚类，并对其进行语义类的标定（为该类中的实体指定１个或多个公共上位词）。</p>
+<h3 id="知识推理"><a href="#知识推理" class="headerlink" title="知识推理"></a>知识推理</h3><p>知识推理是指从知识库中已有的实体关系数据出发，经过计算机推理，建立实体间的新关联，从而拓展和丰富知识网络。知识推理是知识图谱构建的重要手段和关键环节，通过知识推理，能够从现有知识中发现新的知识。例如已知（乾隆，父亲，雍正）和 （雍正，父亲，康熙），可以得到（乾隆，祖父，康熙）或 （康熙，孙子，乾隆）。知识推理的对象并不局限于实体间的关系，也可以是实体的属性值、本体的概念层次关系等。例如已知某实体的生日属性，可以通过推理得到该实体的年龄属性。根据本体库中的概念继承关系，也可以进行概念推理，例如已知（老虎，科，猫科）和（猫科，目，食肉目），可以推出（老虎，目，食肉目）。</p>
+<p>知识的推理方法可以分为２大类：基于逻辑的推理和基于图的推理。</p>
+<h3 id="质量评估"><a href="#质量评估" class="headerlink" title="质量评估"></a>质量评估</h3><p>质 量 评 估 也 是 知 识 库 构 建 技 术 的 重 要 组 成 部分。１）受现有技术水平的限制，采用开放域信息抽取技术得到的知识元素有可能存在错误（如实体识别错误、关系抽取错误等），经过知识推理得到的知识的质量同样也是没有保障的，因此在将其加入知识库之前，需要有一个质量评估的过程；２）随着开放关联数据项目的推进，各子项目所产生的知识库产品间的质量差异也在增大，数据间的冲突日益增多，如何对其质量进行评估，对于全局知识图谱的构建起着重要的作用。引入质量评估的意义在于：可以对知识的可信度进行量化，通过舍弃置信度较低的知识，可以保障知识库的质量。</p>
+<h2 id="知识更新"><a href="#知识更新" class="headerlink" title="知识更新"></a>知识更新</h2><p>人类所拥有的信息和知识量都是时间的单调递增函数，因此知识图谱的内容也需要与时俱进，其构建过程是一个不断迭代更新的过程。从逻辑上看，知识库的更新包括概念层的更新和数据层的更新。概念层的更新是指新增数据后获得了新的概念，需要自动将新的概念添加到知识库的概念层中。数据层的更新主要是新增或更新实体、关系和属性值，对数据层进行更新需要考虑数据源的可靠性、数据的一致性（是否存在矛盾或冗余等问题）等多方面因素。当前流行的方法是选择百科类网站等可靠数据源，并选择在各数据源中出现频率高的事实和属性加入知识库。知识的更新也可以采用众包的模式（如Freebase），而对于概念层的更新，则需要借助专业团队进行人工审核。</p>
+<p>知识图谱的内容更新有２种方式：数据驱动下的全面更新和增量更新。所谓全面更新是指以更新后的全部数据为输入，从零开始构建知识图谱。这种方式比较简单，但资源消耗大，而且需要耗费大量人力资源进行系统维护；而增量更新，则是以当前新增数据为输入，向现有知识图谱中添加新增知识。这种方式资源消耗小，但目前仍需要大量人工干预（定义规则等），因此实施起来十分困难。</p>
+<h1 id="问题与挑战"><a href="#问题与挑战" class="headerlink" title="|问题与挑战"></a><strong>|</strong>问题与挑战</h1><p>１）在信息抽取环节，面向开放域的信息抽取方法研究还处于起步阶段，部分研究成果虽然在特定（语种、领域、主题等）数据集上取得了较好的结果，但普遍存在算法准确性和召回率低、限制条件多、扩展性不好的问题。因此，要想建成面向全球的知识图谱，第１个挑战来自开放域信息抽取，主要的问题包括实体抽取、关系抽取以及属性抽取。其中，多语种、开放领域的纯文本信息抽取问题是当前面临的重要挑战。</p>
+<p>２）在知识融合环节，如何实现准确的实体链接是一个主要挑战。虽然关于实体消歧和共指消解技术的研究已经有很长的历史，然而迄今为止所取得的研究成果距离实际应用还有很大距离。主要的研究问题包括开放域条件下的实体消歧、共指消解、外部知识库融合和关系数据库知识融合等问题。当前受到学术界普遍关注的问题是如何在上下文信息受限（短文本、跨语境、跨领域等）条件下，准确地将从文本中抽取得到的实体正确链接到知识库中对应的实体。</p>
+<p>３）知识加工是最具特色的知识图谱技术，同时也是该领域最大的挑战之所在。主要的研究问题包括：本体的自动构建、知识推理技术、知识质量评估手段以及推理技术的应用。目前，本体构建问题的研究焦点是聚类问题，对知识质量评估问题的研究则主要关注建立完善的质量评估技术标准和指标体系。知识推理的方法和应用研究是当前该领域最为困难，同时也是最为吸引人的问题，需要突破现有技术和思维方式的限制，知识推理技术的创新也将对知识图谱的应用产生深远影响。</p>
+<p>４）在知识更新环节，增量更新技术是未来的发展方向，然而现有的知识更新技术严重依赖人工干预。可以预见随着知识图谱的不断积累，依靠人工制定更新规则和逐条检视的旧模式将会逐步降低比重，自动化程度将不断提高，如何确保自动化更新的有效性，是该领域面临的又一重大挑战。</p>
+<p>５）最具基础研究价值的挑战是如何解决知识的表达、存储与查询问题，这个问题将伴随知识图谱技术发展的始终，对该问题的解决将反过来影响前面提出的挑战和关键问题。当前的知识图谱主要采用图数据库进行存储，在受益于图数据库带来的查询效率的同 时，也失去了关系型数据库的优点，如SQL语言支持 和 集 合 查 询 效 率 等．在 查 询 方 面，如何处理自然语言查询，对其进行分析推理，翻译成知识图谱可理解的查询表达式以及等价表达式等也都是知识图谱应用需解决的关键问题。</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://chunchunya.github.io">Amanda-Zhang</a></p><p> <span>Link:  </span><a href="http://chunchunya.github.io/2020/07/30/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">http://chunchunya.github.io/2020/07/30/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2020/06/06/%E8%AF%8D%E5%90%91%E9%87%8F%EF%BC%88NLP%E5%85%A5%E9%97%A8%EF%BC%89/" title="词向量（NLP入门）"><span>NextPost ></span><br><span class="nextTitle">词向量（NLP入门）</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
+  id: '知识图谱入门',
+  owner: 'chunchunya',
+  repo: 'chunchunya.github.io',
+  oauth: {
+    client_id: '02a567ecc3b542477c57',
+    client_secret: '18dac3df97b911b8546e910cf397002bd3ec9544',
+  },
+})
+gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">|介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#技术架构"><span class="toc-number">2.</span> <span class="toc-text">|技术架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#知识图谱的构建技术"><span class="toc-number">3.</span> <span class="toc-text">|知识图谱的构建技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#信息抽取"><span class="toc-number">3.1.</span> <span class="toc-text">信息抽取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实体抽取"><span class="toc-number">3.1.1.</span> <span class="toc-text">实体抽取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系抽取"><span class="toc-number">3.1.2.</span> <span class="toc-text">关系抽取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性抽取"><span class="toc-number">3.1.3.</span> <span class="toc-text">属性抽取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#知识融合"><span class="toc-number">3.2.</span> <span class="toc-text">知识融合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实体链接"><span class="toc-number">3.2.1.</span> <span class="toc-text">实体链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实体消岐"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">实体消岐</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#空间向量模型（词袋模型）"><span class="toc-number">3.2.1.1.1.</span> <span class="toc-text">空间向量模型（词袋模型）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#语义模型"><span class="toc-number">3.2.1.1.2.</span> <span class="toc-text">语义模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#社会网络模型"><span class="toc-number">3.2.1.1.3.</span> <span class="toc-text">社会网络模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#百科知识模型"><span class="toc-number">3.2.1.1.4.</span> <span class="toc-text">百科知识模型</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#共指消解"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">共指消解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#知识合并"><span class="toc-number">3.2.2.</span> <span class="toc-text">知识合并</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#合并外部知识库"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">合并外部知识库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合并关系数据库"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">合并关系数据库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#知识加工"><span class="toc-number">3.3.</span> <span class="toc-text">知识加工</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#本体构建"><span class="toc-number">3.3.1.</span> <span class="toc-text">本体构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#知识推理"><span class="toc-number">3.3.2.</span> <span class="toc-text">知识推理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#质量评估"><span class="toc-number">3.3.3.</span> <span class="toc-text">质量评估</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#知识更新"><span class="toc-number">3.4.</span> <span class="toc-text">知识更新</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#问题与挑战"><span class="toc-number">4.</span> <span class="toc-text">|问题与挑战</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
