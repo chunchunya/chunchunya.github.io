@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Amanda-Zhang"><meta name="renderer" content="webkit"><meta name="copyright" content="Amanda-Zhang"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>力扣每日一题-排序类型题目 · Amanda's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/me11.jpg"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Amanda-Zhang</div><div class="profile-signature">追梦女一枚</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/cyh756085049" target="_black">friendA</a></span><span><a href="//github.com/raymond-zhao" target="_black">friendB</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.jpg);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Chunchun's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">力扣每日一题-排序类型题目</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2021-01-27</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="-leetcode -算法"> -leetcode -算法</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">1.4k</span> | Reading time: <span class="post-count">5</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h2 id="快速选择"><a href="#快速选择" class="headerlink" title="快速选择"></a>快速选择</h2><p>用于求解   <strong>Kth Element</strong>   问题，也就是第 K 个元素的问题。</p>
+<p>可以使用快速排序的 partition() 进行实现。需要先打乱数组，否则最坏情况下时间复杂度为 O(N2)。</p>
+<h2 id><a href="#" class="headerlink" title></a></h2><h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>用于求解   <strong>TopK Elements</strong>   问题，也就是 K 个最小元素的问题。使用最小堆来实现  TopK 问题，最小堆使用大顶堆来实现，大顶堆的堆顶元素为当前堆的最大元素。实现过程：不断地往大顶堆中插入新元素，当堆中元素的数量大于 k  时，移除堆顶元素，也就是当前堆中最大的元素，剩下的元素都为当前添加过的元素中最小的 K 个元素。插入和移除堆顶元素的时间复杂度都为 log2N。</p>
+<p>堆也可以用于求解 Kth Element 问题，得到了大小为 K 的最小堆之后，因为使用了大顶堆来实现，因此堆顶元素就是第 K 大的元素。</p>
+<p>快速选择也可以求解 TopK Elements 问题，因为找到 Kth Element 之后，再遍历一次数组，所有小于等于 Kth Element 的元素都是 TopK Elements。</p>
+<p><strong>可以看到，快速选择和堆排序都可以求解 Kth Element 和 TopK Elements 问题。</strong></p>
+<h1 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a><a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener">215. 数组中的第K个最大元素</a></h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。</p>
+<p>示例 1:</p>
+<p>输入: [3,2,1,5,6,4] 和 k = 2<br>        输出: 5</p>
+<p>示例 2:</p>
+<p>输入: [3,2,3,1,2,4,5,5,6] 和 k = 4<br>        输出: 4</p>
+<p>说明:</p>
+<p>你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>Topk问题（ JavaScript-Algorithms ），不过于三种方案：</p>
+<pre><code>排序，取第 k 个
+构造前 k 个最大元素小顶堆，取堆顶
+计数排序或桶排序，但它们都要求输入的数据必须是有确定范围的整数，所以本题不可用</code></pre><p>那么除了这两种方案还有没有其它的方式可解决本题喃？其实还有两种：</p>
+<pre><code>快速选择（quickselect）算法
+中位数的中位数（bfprt）算法</code></pre><p>（1）首先，这是自己想的一种方法，看这道题的第一想法就是这个——利用js中数组的sort()方法，但是刚开始写的时候，就直接使用了sort函数，然后返回数组中第k大的数，也就是数组从前到后索引为数组长度减去k的数，然而，我忘记了一点，就是<strong>sort()函数的性质</strong>，sort()函数是会按照数字的字符串形式进行排序，也就是并不是真正意义上的数值排序，根据红宝书中写到的，如果利用sort()函数对数值进行排序，则需要在sort()函数中加入一个compare（）函数的参数，固定格式如下（降序则反之）。如我在网上查到的关于sort(compare)的真正含义，即此方法使用Array.sort(compareFunction和sortOptions)顺序的语法和参数，其参数定义如下： compareFunction  - 用于确定数组元素排序顺序的比较函数。此参数是可选的。比较函数应该用于比较两个参数。给定元素的A和B，compareFunction的结果可以是负值，0或正值： 如果返回值为负，则表示A在排序序列中出现在B之前。 如果返回值为0，则A和B具有相同的排序顺序。 如果返回值为正，则表示A在排序序列中出现在B之后。如以上内容不理解，则建议反复查看红宝书P149页。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> findKthLargest = <span class="function"><span class="keyword">function</span>(<span class="params">nums, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len  = nums.length</span><br><span class="line">    <span class="keyword">let</span> s = len - k</span><br><span class="line">    nums = nums.sort(compare)     <span class="comment">//红宝书149页</span></span><br><span class="line">    <span class="keyword">return</span> nums[s]</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">value1,value2</span>)</span>&#123;        <span class="comment">//这个是放在sort里的函数</span></span><br><span class="line">    <span class="keyword">if</span>(value1&lt;value2)&#123;                  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>                       <span class="comment">//表示降序</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(value1&gt;value2)&#123;            </span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>                         <span class="comment">//表示升序</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>                         <span class="comment">//相等</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简化一下可以这样。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> findKthLargest = <span class="function"><span class="keyword">function</span>(<span class="params">nums, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len  = nums.length</span><br><span class="line">    <span class="keyword">let</span> s = len - k</span><br><span class="line">    nums = nums.sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> a-b )       <span class="comment">//a-b是升序，b-a是降序</span></span><br><span class="line">    <span class="keyword">return</span> nums[s]</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>复杂度分析：</strong></p>
+<ul>
+<li>时间复杂度：O(nlogn)</li>
+<li>空间复杂度：O(logn)          目前还不知道这个是怎么算出来的，先背下来吧。</li>
+</ul>
+<p>（2）构造前 k 个最大元素小顶堆，取堆顶</p>
+<p>我们也可以通过构造一个前 k 个最大元素小顶堆来解决，小顶堆上的任意节点值都必须小于等于其左右子节点值，即堆顶是最小值。</p>
+<p>所以我们可以从数组中取出 k 个元素构造一个小顶堆，然后将其余元素与小顶堆对比，如果大于堆顶则替换堆顶，然后堆化，所有元素遍历完成后，堆中的堆顶即为第 k 个最大值</p>
+<p>具体步骤如下：</p>
+<pre><code>从数组中取前 k 个数（ 0 到 k-1 位），构造一个小顶堆
+从 k 位开始遍历数组，每一个数据都和小顶堆的堆顶元素进行比较，如果小于堆顶元素，则不做任何处理，继续遍历下一元素；如果大于堆顶元素，则将这个元素替换掉堆顶元素，然后再堆化成一个小顶堆。
+遍历完成后，堆顶的数据就是第 K 大的数据</code></pre><p>笔记还没做完。<a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/solution/javascriptsi-chong-fang-shi-jie-topkwen-ti-by-user/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/kth-largest-element-in-an-array/solution/javascriptsi-chong-fang-shi-jie-topkwen-ti-by-user/</a></p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://chunchunya.github.io">Amanda-Zhang</a></p><p> <span>Link:  </span><a href="http://chunchunya.github.io/2021/01/27/1.27_%E6%8E%92%E5%BA%8F/">http://chunchunya.github.io/2021/01/27/1.27_%E6%8E%92%E5%BA%8F/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2021/01/20/python%E4%B8%ADfit%E5%92%8Ctransform%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/" title="fit函数和transform函数的区别"><span>NextPost ></span><br><span class="nextTitle">fit函数和transform函数的区别</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
+  id: '力扣每日一题-排序类型题目',
+  owner: 'chunchunya',
+  repo: 'chunchunya.github.io',
+  oauth: {
+    client_id: '02a567ecc3b542477c57',
+    client_secret: '18dac3df97b911b8546e910cf397002bd3ec9544',
+  },
+})
+gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#快速选择"><span class="toc-number">1.</span> <span class="toc-text">快速选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆"><span class="toc-number">3.</span> <span class="toc-text">堆</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#215-数组中的第K个最大元素"><span class="toc-number"></span> <span class="toc-text">215. 数组中的第K个最大元素</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题解"><span class="toc-number">2.</span> <span class="toc-text">题解</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
