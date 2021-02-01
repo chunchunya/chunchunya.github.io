@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Amanda-Zhang"><meta name="renderer" content="webkit"><meta name="copyright" content="Amanda-Zhang"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>堆的相关知识 · Amanda's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/me11.jpg"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Amanda-Zhang</div><div class="profile-signature">追梦女一枚</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/cyh756085049" target="_black">friendA</a></span><span><a href="//github.com/raymond-zhao" target="_black">friendB</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.jpg);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Chunchun's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">堆的相关知识</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2021-02-01</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="-数据结构 -算法"> -数据结构 -算法</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">1.2k</span> | Reading time: <span class="post-count">4</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h1 id="什么是堆？"><a href="#什么是堆？" class="headerlink" title="什么是堆？"></a>什么是堆？</h1><p><a href="https://github.com/sisterAn/JavaScript-Algorithms/issues/60" target="_blank" rel="noopener">参考文档</a></p>
+<p>满足下面两个条件的就是堆：</p>
+<ul>
+<li>堆是一个完全二叉树（<strong>完全二叉树</strong>：若设二叉树的深度为h,除第  h  层外,其它各层  (1~h-1)  的结点数都达到最大个数,第  h  层所有的结点都连续集中在最左边,这就是完全二叉树。）</li>
+<li>堆上的任意节点值都必须大于等于（<strong>大顶堆</strong>）或小于等于（<strong>小顶堆</strong>）其左右子节点值</li>
+</ul>
+<p>如果堆上的任意节点都大于等于子节点值，则称为 <strong>大顶堆</strong></p>
+<p>如果堆上的任意节点都小于等于子节点值，则称为 <strong>小顶堆</strong></p>
+<p>也就是说，在大顶堆中，根节点是堆中最大的元素；在小顶堆中，根节点是堆中最小的元素；</p>
+<h1 id="堆的存储"><a href="#堆的存储" class="headerlink" title="堆的存储"></a>堆的存储</h1><p>我们知道，完全二叉树适用于数组存储法（ <a href="https://github.com/sisterAn/JavaScript-Algorithms/issues/39" target="_blank" rel="noopener">前端进阶算法7：小白都可以看懂的树与二叉树</a> ），而堆又是一个完全二叉树，所以它可以直接使用数组存储法存储：<strong>也就是说堆其实可以用一个数组表示，给定一个节点的下标 <code>i</code> （i从1开始） ，那么它的父节点一定为 <code>A[i/2]</code> ，左子节点为 <code>A[2i]</code> ，右子节点为 <code>A[2i+1]</code>**</strong></p>
+<h1 id="堆的创建"><a href="#堆的创建" class="headerlink" title="堆的创建"></a>堆的创建</h1><ul>
+<li>插入式创建：每次插入一个节点，实现一个大顶堆（或小顶堆）</li>
+<li>原地创建：又称堆化，给定一组节点，实现一个大顶堆（或小顶堆）</li>
+</ul>
+<h2 id="插入式建堆"><a href="#插入式建堆" class="headerlink" title="插入式建堆"></a>插入式建堆</h2><p><strong>插入节点：</strong></p>
+<ul>
+<li><p>将节点插入到队尾</p>
+</li>
+<li><p><strong>自下往上堆化：</strong> 将插入节点与其父节点比较，如果插入节点大于父节点（大顶堆）或插入节点小于父节点（小顶堆），则插入节点与父节点调整位置</p>
+</li>
+<li><p>一直重复上一步，直到不需要交换或交换到根节点，此时插入完成。</p>
+<p><img src="/687474703a2f2f7265736f757263652e6d757969792e636e2f696d6167652f32303230303630323233333533322e706e67" alt="https://camo.githubusercontent.com/d31f629ba7469fb3ec1129c57195c3b774f1ae002ce689e512e2328f978dfbc1/687474703a2f2f7265736f757263652e6d757969792e636e2f696d6167652f32303230303630323233333533322e706e67"></p>
+</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insert</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">    items.push(key)         <span class="comment">//push:插入到队尾</span></span><br><span class="line">    <span class="comment">// 获取存储位置</span></span><br><span class="line">    <span class="keyword">let</span> i = items.length<span class="number">-1</span> </span><br><span class="line">    <span class="keyword">while</span> (i/<span class="number">2</span> &gt; <span class="number">0</span> &amp;&amp; items[i] &gt; items[i/<span class="number">2</span>]) &#123;  </span><br><span class="line">        swap(items, i, i/<span class="number">2</span>); <span class="comment">// 交换 </span></span><br><span class="line">        i = i/<span class="number">2</span>; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">items, i, j</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> temp = items[i]</span><br><span class="line">    items[i] = items[j]</span><br><span class="line">    items[j] = temp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="原地建堆（堆化）"><a href="#原地建堆（堆化）" class="headerlink" title="原地建堆（堆化）"></a>原地建堆（堆化）</h2><p>原地建堆的方法有两种：</p>
+<ul>
+<li><strong>自下而上式堆化</strong> ：将节点与其父节点比较，如果节点大于父节点（大顶堆）或节点小于父节点（小顶堆），则节点与父节点调整位置</li>
+<li><strong>自上往下式堆化</strong> ：将节点与其左右子节点比较，如果存在左右子节点大于该节点（大顶堆）或小于该节点（小顶堆），则将子节点的最大值（大顶堆）或最小值（小顶堆）与之交换</li>
+</ul>
+<p><strong>所以，自下而上式堆是调整节点与父节点（往上走），自上往下式堆化是调整节点与其左右子节点（往下走）。</strong></p>
+<h4 id="1-从前往后、自下而上式堆化建堆"><a href="#1-从前往后、自下而上式堆化建堆" class="headerlink" title="1. 从前往后、自下而上式堆化建堆"></a>1. 从前往后、自下而上式堆化建堆</h4><p>这里以小顶堆为例，</p>
+<p><img src="/687474703a2f2f7265736f757263652e6d757969792e636e2f696d6167652f32303230303630333030303031372e706e67" alt="https://camo.githubusercontent.com/e6fce6a1ab8ae2545a4f94a66483fea0eb9e35f04bdc85ecd1fa1cb8a524c240/687474703a2f2f7265736f757263652e6d757969792e636e2f696d6167652f32303230303630333030303031372e706e67"></p>
+<p>代码如下(还是有点不太理解)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原地建堆</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildHeap</span>(<span class="params">items, heapSize</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(heapSize &lt; items.length<span class="number">-1</span>) &#123;</span><br><span class="line">        heapSize ++</span><br><span class="line">        heapify(items, heapSize)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">heapify</span>(<span class="params">items, i</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 自下而上式堆化</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">Math</span>.floor(i/<span class="number">2</span>) &gt; <span class="number">0</span> &amp;&amp; items[i] &lt; items[<span class="built_in">Math</span>.floor(i/<span class="number">2</span>)]) &#123;</span><br><span class="line">        swap(items, i, <span class="built_in">Math</span>.floor(i/<span class="number">2</span>)); <span class="comment">// 交换</span></span><br><span class="line">        i = <span class="built_in">Math</span>.floor(i/<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">items, i, j</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> temp = items[i]</span><br><span class="line">    items[i] = items[j]</span><br><span class="line">    items[j] = temp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">var</span> items = [,<span class="number">5</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment">// 初始有效序列长度为 1</span></span><br><span class="line">buildHeap(items, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(items)</span><br><span class="line"><span class="comment">// [empty, 1, 2, 3, 5, 4]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-从后往前、自上而下式堆化建堆"><a href="#2-从后往前、自上而下式堆化建堆" class="headerlink" title="2. 从后往前、自上而下式堆化建堆"></a>2. 从后往前、自上而下式堆化建堆</h4><p>这里以小顶堆为例</p>
+<p>注意：从后往前并不是从序列的最后一个元素开始，而是从最后一个非叶子节点开始，这是因为，叶子节点没有子节点，不需要自上而下式堆化。</p>
+<p>最后一个子节点的父节点为 <code>n/2</code> ，所以从 <code>n/2</code> 位置节点开始堆化：</p>
+<p><img src="/687474703a2f2f7265736f757263652e6d757969792e636e2f696d6167652f32303230303630333030323335362e706e67" alt="https://camo.githubusercontent.com/ba8dd453d804ddc7a6f3ede6ab2c40de91e8522ac7b553976ff68f75bd8b25bb/687474703a2f2f7265736f757263652e6d757969792e636e2f696d6167652f32303230303630333030323335362e706e67"></p>
+<p>代码实现如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原地建堆</span></span><br><span class="line"><span class="comment">// items: 原始序列</span></span><br><span class="line"><span class="comment">// heapSize: 初始有效序列长度</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildHeap</span>(<span class="params">items, heapSize</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 从最后一个非叶子节点开始，自上而下式堆化</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="built_in">Math</span>.floor(heapSize/<span class="number">2</span>); i &gt;= <span class="number">1</span>; --i) &#123;    </span><br><span class="line">        heapify(items, heapSize, i);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">heapify</span>(<span class="params">items, heapSize, i</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 自上而下式堆化</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> minIndex = i;</span><br><span class="line">        <span class="keyword">if</span>(<span class="number">2</span>*i &lt;= heapSize &amp;&amp; items[i] &gt; items[i*<span class="number">2</span>] ) &#123;</span><br><span class="line">            minIndex = i*<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(<span class="number">2</span>*i+<span class="number">1</span> &lt;= heapSize &amp;&amp; items[minIndex] &gt; items[i*<span class="number">2</span>+<span class="number">1</span>] ) &#123;</span><br><span class="line">            minIndex = i*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (minIndex === i) <span class="keyword">break</span>;</span><br><span class="line">        swap(items, i, minIndex); <span class="comment">// 交换 </span></span><br><span class="line">        i = minIndex; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">items, i, j</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> temp = items[i]</span><br><span class="line">    items[i] = items[j]</span><br><span class="line">    items[j] = temp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">var</span> items = [,<span class="number">5</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment">// 因为 items[0] 不存储数据</span></span><br><span class="line"><span class="comment">// 所以：heapSize = items.length - 1</span></span><br><span class="line">buildHeap(items, items.length - <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(items)</span><br><span class="line"><span class="comment">// [empty, 1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://chunchunya.github.io">Amanda-Zhang</a></p><p> <span>Link:  </span><a href="http://chunchunya.github.io/2021/02/01/%E5%A0%86%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">http://chunchunya.github.io/2021/02/01/%E5%A0%86%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2021/01/27/1.27_%E6%8E%92%E5%BA%8F/" title="力扣每日一题-排序类型题目"><span>NextPost ></span><br><span class="nextTitle">力扣每日一题-排序类型题目</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
+  id: '堆的相关知识',
+  owner: 'chunchunya',
+  repo: 'chunchunya.github.io',
+  oauth: {
+    client_id: '02a567ecc3b542477c57',
+    client_secret: '18dac3df97b911b8546e910cf397002bd3ec9544',
+  },
+})
+gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是堆？"><span class="toc-number">1.</span> <span class="toc-text">什么是堆？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#堆的存储"><span class="toc-number">2.</span> <span class="toc-text">堆的存储</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#堆的创建"><span class="toc-number">3.</span> <span class="toc-text">堆的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入式建堆"><span class="toc-number">3.1.</span> <span class="toc-text">插入式建堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原地建堆（堆化）"><span class="toc-number">3.2.</span> <span class="toc-text">原地建堆（堆化）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-从前往后、自下而上式堆化建堆"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">1. 从前往后、自下而上式堆化建堆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-从后往前、自上而下式堆化建堆"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">2. 从后往前、自上而下式堆化建堆</span></a></li></ol></li></ol></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
