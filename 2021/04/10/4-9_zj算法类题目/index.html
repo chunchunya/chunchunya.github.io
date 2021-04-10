@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Amanda-Zhang"><meta name="renderer" content="webkit"><meta name="copyright" content="Amanda-Zhang"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>力扣算法题 · Amanda's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/me11.jpg"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Amanda-Zhang</div><div class="profile-signature">追梦女一枚</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/cyh756085049" target="_black">friendA</a></span><span><a href="//github.com/raymond-zhao" target="_black">friendB</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.jpg);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Chunchun's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">力扣算法题</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2021-04-10</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="-leetcode -算法"> -leetcode -算法</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">910</span> | Reading time: <span class="post-count">4</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h4 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20. 有效的括号"></a><a href="https://leetcode-cn.com/problems/valid-parentheses/" target="_blank" rel="noopener">20. 有效的括号</a></h4><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串 s ，判断字符串是否有效。</p>
+<p>有效字符串需满足：</p>
+<pre><code>左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。 </code></pre><p>示例 1：</p>
+<p>输入：s = “()”<br>        输出：true</p>
+<p>示例 2：</p>
+<p>输入：s = “()[]{}”<br>        输出：true</p>
+<p>示例 3：</p>
+<p>输入：s = “(]”<br>        输出：false</p>
+<p>示例 4：</p>
+<p>输入：s = “([)]”<br>        输出：false</p>
+<p>示例 5：</p>
+<p>输入：s = “{[]}”<br>        输出：true</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>遇到此类括号匹配题目，首先想到的就是栈了。</p>
+<p>栈先入后出特点恰好与本题括号排序特点一致，即若遇到左括号入栈，遇到右括号时将对应栈顶左括号出栈，则遍历完所有括号后 stack 仍然为空；建立哈希表 Map构建左右括号对应关系：key左括号，value 右括号；这样查询 2 个括号是否对应只需 O(1) 时间复杂度；建立栈 stack，遍历字符串 s 并按照算法流程一一判断。</p>
+<p>解法一：自己做的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;boolean&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">let</span> s1 = s.split(<span class="string">""</span>);</span><br><span class="line">  <span class="keyword">if</span>(s1.length % <span class="number">2</span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">   <span class="keyword">let</span> stk = [];</span><br><span class="line">   <span class="keyword">const</span> m = <span class="keyword">new</span> <span class="built_in">Map</span>([[<span class="string">'('</span>,<span class="string">')'</span>],[<span class="string">'['</span>,<span class="string">']'</span>],[<span class="string">'&#123;'</span>,<span class="string">'&#125;'</span>]]);</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> s1)&#123;</span><br><span class="line">       <span class="keyword">if</span>(m.get(i))&#123;</span><br><span class="line">           stk.push(i);</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           <span class="keyword">if</span>(i !== m.get(stk[stk.length<span class="number">-1</span>]))&#123;</span><br><span class="line">               <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">           &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">               stk.pop();</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> !stk.length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解法二：模仿别人做的。其实道理和解法一相同，只是建map的时候顺序有些不同，就会执行不同的操作，详情见代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//模仿别人做的</span></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s.length % <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> stk = [];</span><br><span class="line">    <span class="keyword">const</span> mm = <span class="keyword">new</span> <span class="built_in">Map</span>([[<span class="string">')'</span>,<span class="string">'('</span>],[<span class="string">']'</span>,<span class="string">'['</span>],[<span class="string">'&#125;'</span>,<span class="string">'&#123;'</span>]]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> s)&#123;</span><br><span class="line">        <span class="keyword">if</span>(mm.get(i))&#123;</span><br><span class="line">            <span class="keyword">if</span>(stk[stk.length<span class="number">-1</span>] !== mm.get(i)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">else</span> stk.pop();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            stk.push(i)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> !stk.length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>解法三：不利用Map的做法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(s.length % <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> stk = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> s)&#123;</span><br><span class="line">        <span class="keyword">switch</span>(i)&#123;</span><br><span class="line">          <span class="keyword">case</span> <span class="string">"("</span>:</span><br><span class="line">          <span class="keyword">case</span> <span class="string">"["</span>:</span><br><span class="line">          <span class="keyword">case</span> <span class="string">"&#123;"</span>:</span><br><span class="line">            stk.push(i);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="string">")"</span>:</span><br><span class="line">            <span class="keyword">if</span>(stk.pop()!== <span class="string">"("</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="string">"]"</span>:</span><br><span class="line">            <span class="keyword">if</span>(stk.pop()!== <span class="string">"["</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">           <span class="keyword">case</span> <span class="string">"&#125;"</span>:</span><br><span class="line">            <span class="keyword">if</span>(stk.pop()!== <span class="string">"&#123;"</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> !stk.length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="394-字符串解码"><a href="#394-字符串解码" class="headerlink" title="394. 字符串解码"></a><a href="https://leetcode-cn.com/problems/decode-string/" target="_blank" rel="noopener">394. 字符串解码</a></h4><p>给定一个经过编码的字符串，返回它解码后的字符串。</p>
+<p>编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。</p>
+<p>你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。</p>
+<p>此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。</p>
+<p>示例 1：</p>
+<p>输入：s = “3[a]2[bc]”<br>       输出：”aaabcbc”</p>
+<p>示例 2：</p>
+<p>输入：s = “3[a2[c]]”<br>       输出：”accaccacc”</p>
+<p>示例 3：</p>
+<p>输入：s = “2[abc]3[cd]ef”<br>       输出：”abcabccdcdcdef”</p>
+<p>示例 4：</p>
+<p>输入：s = “abc3[cd]xyz”<br>       输出：”abccdcdcdxyz”</p>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p>用栈来做吧（多看多复习，这个有点绕，画画图最好！）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;string&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> decodeString = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> numStack = [];        <span class="comment">// 存倍数的栈</span></span><br><span class="line">    <span class="keyword">let</span> strStack = [];        <span class="comment">// 存 待拼接的str 的栈</span></span><br><span class="line">    <span class="keyword">let</span> num = <span class="number">0</span>;              <span class="comment">// 倍数的“搬运工”</span></span><br><span class="line">    <span class="keyword">let</span> result = <span class="string">''</span>;          <span class="comment">// 字符串的“搬运工”</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> char <span class="keyword">of</span> s) &#123;   <span class="comment">// 逐字符扫描</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(char)) &#123;   <span class="comment">// 遇到数字</span></span><br><span class="line">            num = num * <span class="number">10</span> + <span class="built_in">Number</span>(char); <span class="comment">// 算出倍数</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (char == <span class="string">'['</span>) &#123;  <span class="comment">// 遇到 [</span></span><br><span class="line">            strStack.push(result); <span class="comment">// result串入栈</span></span><br><span class="line">            result = <span class="string">''</span>;           <span class="comment">// 入栈后清零</span></span><br><span class="line">            numStack.push(num);    <span class="comment">// 倍数num进入栈等待</span></span><br><span class="line">            num = <span class="number">0</span>;               <span class="comment">// 入栈后清零</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (char == <span class="string">']'</span>) &#123;  <span class="comment">// 遇到 ]，两个栈的栈顶出栈</span></span><br><span class="line">            <span class="keyword">let</span> repeatTimes = numStack.pop(); <span class="comment">// 获取拷贝次数</span></span><br><span class="line">            result = strStack.pop() + result.repeat(repeatTimes); <span class="comment">// 构建子串</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;                   </span><br><span class="line">            result += char;        <span class="comment">// 遇到字母，追加给result串</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://chunchunya.github.io">Amanda-Zhang</a></p><p> <span>Link:  </span><a href="http://chunchunya.github.io/2021/04/10/4-9_zj%E7%AE%97%E6%B3%95%E7%B1%BB%E9%A2%98%E7%9B%AE/">http://chunchunya.github.io/2021/04/10/4-9_zj%E7%AE%97%E6%B3%95%E7%B1%BB%E9%A2%98%E7%9B%AE/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2021/04/07/%E9%93%BE%E8%A1%A8%E7%B1%BB%E9%A2%98%E7%9B%AE/" title="力扣每日一题-链表类题目"><span>NextPost ></span><br><span class="nextTitle">力扣每日一题-链表类题目</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
+  id: '力扣算法题',
+  owner: 'chunchunya',
+  repo: 'chunchunya.github.io',
+  oauth: {
+    client_id: '02a567ecc3b542477c57',
+    client_secret: '18dac3df97b911b8546e910cf397002bd3ec9544',
+  },
+})
+gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#20-有效的括号"><span class="toc-number">1.</span> <span class="toc-text">20. 有效的括号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题解"><span class="toc-number">2.</span> <span class="toc-text">题解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#394-字符串解码"><span class="toc-number">3.</span> <span class="toc-text">394. 字符串解码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题解-1"><span class="toc-number">4.</span> <span class="toc-text">题解</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
