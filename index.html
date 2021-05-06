@@ -101,13 +101,16 @@
 1234int temp;temp=a;a=b;b=temp;
 
 需借助上面的第3个临时变量temp。
- 2.采用下面的方法，对于给定两个整数a,b，下面的异或运算可以实现a,b的交换，而无需借助第3个临时变量：**
+ 2.采用下面的方法，对于给定两个整数a,b，下面的异或运算可以实现a,b的交换，而无需借助第3个临时变量：
 123a = a ^ b;b = a ^ b;a = a ^ b;
 
+3.另一种方法
+123a=a+b;b=a-b;a=a-b;
+
+ 前提是a+b的值不能溢出。
  这个交换两个变量而无需借助第3个临时变量过程，其实现主要是基于异或运算的如下性质：
  1.任意一个变量X与其自身进行异或运算，结果为0，即X^X=0
- 2.任意一个变量X与0进行异或运算，结果不变，即X^0=X
- 3.异或运算具有可结合性，即a^b^c=（a^b）^c ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="基本概念"> 基本概念</a></div><div class="read-more"><a class="more" href="/2021/05/06/%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E6%95%B0/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2021/04/10/4-9_zj%E7%AE%97%E6%B3%95%E7%B1%BB%E9%A2%98%E7%9B%AE/">力扣算法题</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2021-04-10T01:47:13.859Z">2021-04-10</time><i class="fa fa-edit"></i><time datetime="2021-04-10T01:47:13.859Z">2021-04-23</time></div><div class="recent-post-content">20. 有效的括号给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串 s ，判断字符串是否有效。
+ 2.任意一个变量X与0进行异 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="基本概念"> 基本概念</a></div><div class="read-more"><a class="more" href="/2021/05/06/%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E6%95%B0/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2021/04/10/4-9_zj%E7%AE%97%E6%B3%95%E7%B1%BB%E9%A2%98%E7%9B%AE/">力扣算法题</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2021-04-10T01:47:13.859Z">2021-04-10</time><i class="fa fa-edit"></i><time datetime="2021-04-10T01:47:13.859Z">2021-04-23</time></div><div class="recent-post-content">20. 有效的括号给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串 s ，判断字符串是否有效。
 有效字符串需满足：
 左括号必须用相同类型的右括号闭合。
 左括号必须以正确的顺序闭合。 示例 1：
