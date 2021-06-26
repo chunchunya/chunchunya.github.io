@@ -97,7 +97,25 @@
   }
 }( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/me11.jpg"></div><!--.profile-saying
   i.fa.fa-comment
-  .saying--><div class="cxo-profile-inner"><div class="profile-name">Amanda-Zhang</div><div class="profile-signature">追梦女一枚</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/cyh756085049" target="_black">friendA</a></span><span><a href="//github.com/raymond-zhao" target="_black">friendB</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.jpg);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Chunchun's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1>Chunchun's Blog</h1><h5>Nice to meet you!</h5><div class="intro-social"><a class="fa fa-github" href="//github.com/chunchunya" target="_blank" title="github"></a><a class="fa fa-weibo" href="//www.weibo.com/p/1005055724744612/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" target="_blank" title="weibo"></a><a class="fa fa-facebook" href="//www.facebook.com" target="_blank" title="facebook"></a><a class="fa fa-twitter" href="//twitter.com" target="_blank" title="twitter"></a><a class="fa fa-rss" href="/atom.xml" target="_blank" title="rss"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a href="/2021/06/17/%E8%99%9A%E6%8B%9FDOM%E5%92%8CDiff%E7%AE%97%E6%B3%95/">虚拟DOM和Diff算法</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2021-06-17T02:25:43.625Z">2021-06-17</time><i class="fa fa-edit"></i><time datetime="2021-06-17T02:25:43.625Z">2021-06-17</time></div><div class="recent-post-content">当我们更新了state中的值的时候，React会去调用render()方法来重新渲染整个组件的UI，但是如果我们真的去操作这么大量的DOM，显然性能是堪忧的。所以React实现了一个Virtual DOM，组件的真实DOM结构和Virtual DOM之间有一个映射的关系，React在虚拟DOM上实现了一个diff算法，当render()去重新渲染组件的时候，diff会找到需要变更的DOM，然后再把修改更新到浏览器上面的真实DOM上，所以，React并不是渲染了整个DOM树，Virtual DOM就是JS数据结构，所以比原生的DOM快得多。
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Amanda-Zhang</div><div class="profile-signature">追梦女一枚</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/cyh756085049" target="_black">friendA</a></span><span><a href="//github.com/raymond-zhao" target="_black">friendB</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.jpg);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Chunchun's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1>Chunchun's Blog</h1><h5>Nice to meet you!</h5><div class="intro-social"><a class="fa fa-github" href="//github.com/chunchunya" target="_blank" title="github"></a><a class="fa fa-weibo" href="//www.weibo.com/p/1005055724744612/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" target="_blank" title="weibo"></a><a class="fa fa-facebook" href="//www.facebook.com" target="_blank" title="facebook"></a><a class="fa fa-twitter" href="//twitter.com" target="_blank" title="twitter"></a><a class="fa fa-rss" href="/atom.xml" target="_blank" title="rss"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a href="/2021/05/21/5.21_promise/">promise相关概念</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2021-05-21T08:47:22.590Z">2021-05-21</time><i class="fa fa-edit"></i><time datetime="2021-05-21T08:47:22.590Z">2021-06-26</time></div><div class="recent-post-content">promise概念
+promise主要是解决回调地狱的问题。
+Promise 是一个构造函数，通过new关键字实例化对象，从它可以获取异步操作的消息。
+Promise的状态具有不受外界影响和不可逆两个特点。
+传统的回调有五大信任问题：
+
+调用回调过早
+调用回调过晚（或没有被调用）
+调用回调次数过少或过多
+未能传递所需的环境和参数
+吞掉可能出现的错误和异常
+
+Promise可以解决上面的问题。
+语法
+1new Promise((resolve,reject)=&gt;&#123;&#125;)
+
+promise实例有两个属性
+1.PromiseState:状态
+2.PromiseResult:结 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="Js篇"> Js篇</a></div><div class="read-more"><a class="more" href="/2021/05/21/5.21_promise/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2021/06/17/%E8%99%9A%E6%8B%9FDOM%E5%92%8CDiff%E7%AE%97%E6%B3%95/">虚拟DOM和Diff算法</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2021-06-17T02:25:43.625Z">2021-06-17</time><i class="fa fa-edit"></i><time datetime="2021-06-17T02:25:43.625Z">2021-06-17</time></div><div class="recent-post-content">当我们更新了state中的值的时候，React会去调用render()方法来重新渲染整个组件的UI，但是如果我们真的去操作这么大量的DOM，显然性能是堪忧的。所以React实现了一个Virtual DOM，组件的真实DOM结构和Virtual DOM之间有一个映射的关系，React在虚拟DOM上实现了一个diff算法，当render()去重新渲染组件的时候，diff会找到需要变更的DOM，然后再把修改更新到浏览器上面的真实DOM上，所以，React并不是渲染了整个DOM树，Virtual DOM就是JS数据结构，所以比原生的DOM快得多。
 用算法实现虚拟DOM：
 123456789101112 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="React"> React</a></div><div class="read-more"><a class="more" href="/2021/06/17/%E8%99%9A%E6%8B%9FDOM%E5%92%8CDiff%E7%AE%97%E6%B3%95/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2021/06/14/react%E7%9B%B8%E5%85%B3/">react相关</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2021-06-14T07:07:41.349Z">2021-06-14</time><i class="fa fa-edit"></i><time datetime="2021-06-14T07:07:41.349Z">2021-06-14</time></div><div class="recent-post-content">创建一个react文件1234第一步，全局安装：npm i -g create-react-app第二步，切换到想创项目的目录，使用命令：create-react-app hello-react第三步，进入项目文件夹：cd hello-react第四步，启动项目：npm start
 
@@ -119,19 +137,7 @@ Tips：双指针并不是固定的公式，而是一种思维方式~
 输入：s = “([)]”        输出：false
 示例 5：
 输入：s = “{[]}”        输出：true
-题解遇到此类括号匹配题目，首先想到的就是栈了 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="-leetcode -算法"> -leetcode -算法</a></div><div class="read-more"><a class="more" href="/2021/04/10/4-9_zj%E7%AE%97%E6%B3%95%E7%B1%BB%E9%A2%98%E7%9B%AE/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2021/05/21/5.21_promise/">promise相关概念</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2021-05-21T08:47:22.590Z">2021-05-21</time><i class="fa fa-edit"></i><time datetime="2021-05-21T08:47:22.590Z">2021-05-21</time></div><div class="recent-post-content">promise概念
-Promise 是一个对象，从它可以获取异步操作的消息。
-Promise的状态具有不受外界影响和不可逆两个特点。
-传统的回调有五大信任问题：
-
-调用回调过早
-调用回调过晚（或没有被调用）
-调用回调次数过少或过多
-未能传递所需的环境和参数
-吞掉可能出现的错误和异常
-
-Promise可以解决上面的问题。
-</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="Js篇"> Js篇</a></div><div class="read-more"><a class="more" href="/2021/05/21/5.21_promise/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2021/03/24/%E6%9C%89%E5%85%B3%E6%8E%92%E5%BA%8F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AE%97%E6%B3%95/">排序类算法</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2021-03-24T04:11:23.967Z">2021-03-24</time><i class="fa fa-edit"></i><time datetime="2021-03-24T04:11:23.967Z">2021-05-21</time></div><div class="recent-post-content">七种常见排序算法可以分为两大类：
+题解遇到此类括号匹配题目，首先想到的就是栈了 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="-leetcode -算法"> -leetcode -算法</a></div><div class="read-more"><a class="more" href="/2021/04/10/4-9_zj%E7%AE%97%E6%B3%95%E7%B1%BB%E9%A2%98%E7%9B%AE/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2021/03/24/%E6%9C%89%E5%85%B3%E6%8E%92%E5%BA%8F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AE%97%E6%B3%95/">排序类算法</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2021-03-24T04:11:23.967Z">2021-03-24</time><i class="fa fa-edit"></i><time datetime="2021-03-24T04:11:23.967Z">2021-05-21</time></div><div class="recent-post-content">七种常见排序算法可以分为两大类：
 非线性时间比较类排序：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破O(nlogn)，因此称为非线性时间比较类排序。
 线性时间非比较类排序：不通过比较来决定元素间的相对次序，它可以突破基于比较排序的时间下界，以线性时间运行，因此称为线性时间非比较类排序。 
 
